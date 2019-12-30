@@ -138,6 +138,7 @@ dso138: begin clean gccversion build_dso138 sizeafter finished  copy_dso138 end
 gd32f1-generic-pc13: begin clean gccversion build_gd32f1-generic-pc13 sizeafter finished  copy_gd32f1-generic-pc13 end
 gd32f1-frankenmaple: begin clean gccversion build_gd32f1-frankenmaple sizeafter finished  copy_gd32f1-frankenmaple end
 cc3d: begin clean gccversion build_cc3d sizeafter finished  copy_cc3d end
+basicpad-v1: begin clean gccversion build_basicpad-v1 sizeafter finished  copy_basicpad-v1 end
 
 build: elf bin lss sym
 
@@ -425,6 +426,17 @@ copy_cc3d:
 	@echo "Copying to binaries folder"
 	@echo
 	cp $(TARGET).bin bootloader_only_binaries/cc3d.bin
+	@echo
+
+build_basicpad-v1: TARGETFLAGS= -DTARGET_BASICPAD_V1 $(DEFINES)
+# Set the linker script
+build_basicpad-v1: LDFLAGS +=-T$(ST_LIB)/c_only_md_high_density.ld
+build_basicpad-v1: elf bin lss sym
+copy_basicpad-v1:
+	@echo
+	@echo "Copying to binaries folder"
+	@echo
+	cp $(TARGET).bin bootloader_only_binaries/basicpad-v1_bootloader.bin
 	@echo
 
 

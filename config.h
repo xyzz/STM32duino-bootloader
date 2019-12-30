@@ -379,6 +379,15 @@
     #define LED_PIN             3
     #define LED_ON_STATE        0
 
+#elif defined TARGET_BASICPAD_V1
+
+    #define FASTBOOT
+
+    /* Middle key in the 3x3 keymatrix */
+    #define BL_OUTPUT_BANK GPIOB
+    #define BL_OUTPUT_PIN 10
+    #define BL_INPUT_BANK GPIOA
+    #define BL_INPUT_PIN 4
 
 #else
     #error "No config for this target"

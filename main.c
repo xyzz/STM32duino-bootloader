@@ -81,6 +81,12 @@ int main()
         break;
     }
 
+    /* Start DFU if a keyboard matrix key is held on boot */
+    if (readKbMatrix()) {
+        no_user_jump = TRUE;
+        dont_wait = FALSE;
+    }
+
     if (!dont_wait)
     {
         int delay_count = 0;
