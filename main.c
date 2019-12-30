@@ -87,7 +87,7 @@ int main()
         dont_wait = FALSE;
     }
 
-    if (!dont_wait)
+    if (!dont_wait || no_user_jump)
     {
         int delay_count = 0;
 
