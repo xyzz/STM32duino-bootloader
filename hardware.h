@@ -266,4 +266,6 @@ void nvicDisableInterrupts(void);
 int getFlashEnd(void);
 int getFlashPageSize(void);
 
+bool readKbMatrix(void);
+
 #endif

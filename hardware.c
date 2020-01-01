@@ -73,7 +73,7 @@ bool readButtonState() {
     return state;
 }
 
-bool readKbMatrix() {
+bool readKbMatrix(void) {
 #ifdef BL_OUTPUT_BANK
     gpio_write_bit(BL_OUTPUT_BANK, BL_OUTPUT_PIN, 1);
     for (volatile int delay = 0; delay < 1000; ++delay) {}

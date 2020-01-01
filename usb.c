@@ -354,6 +354,8 @@ RESULT usbDataSetup(u8 request) {
 }
 
 RESULT usbNoDataSetup(u8 request) {
+    (void)request;
+
     if ((pInformation->USBbmRequestType & (REQUEST_TYPE | RECIPIENT)) == (CLASS_REQUEST | INTERFACE_RECIPIENT)) {
         /* todo, keep track of the destination interface, often stored in wIndex */
         if (dfuUpdateByRequest()) {
@@ -364,6 +366,8 @@ RESULT usbNoDataSetup(u8 request) {
 }
 
 RESULT usbGetInterfaceSetting(u8 interface, u8 altSetting) {
+    (void)altSetting;
+
     /* alt setting 0 -> program RAM, alt setting 1 -> FLASH */
     if (interface > NUM_ALT_SETTINGS) {
         return USB_UNSUPPORT;

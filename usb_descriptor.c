@@ -198,8 +198,6 @@ u8 u8_usbStringSerial[USB_SERIAL_STR_LEN] = {
     ALT2_MSG_STR
     };
 
-u8 u8_usbStringInterface = NULL;
-
 ONE_DESCRIPTOR usbStringDescriptor[STR_DESC_LEN] = {
     { (u8 *)u8_usbStringLangId,  USB_STR_LANG_ID_LEN },
     { (u8 *)u8_usbStringVendor,  USB_VENDOR_STR_LEN },
