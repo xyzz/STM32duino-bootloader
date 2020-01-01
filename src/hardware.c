@@ -214,6 +214,8 @@ static __attribute__((noreturn)) void setMspAndJump(u32 usrAddr) {
         "msr msp, %0\n"
         "bx %1\n"
         :: "r" (usrSp), "r" (usrMain));
+
+    __builtin_trap();
 }
 
 
