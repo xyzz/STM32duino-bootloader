@@ -65,7 +65,7 @@ int main()
 							strobePin(LED_BANK, LED_PIN, STARTUP_BLINKS, BLINK_FAST,LED_ON_STATE);
 				#endif
 			#endif            
-            if (!checkUserCode(USER_CODE_FLASH0X8005000) && !checkUserCode(USER_CODE_FLASH0X8002000))
+            if (!checkUserCode(USER_CODE_FLASH0X8002000))
             {
                 no_user_jump = TRUE;
             }
@@ -107,18 +107,11 @@ int main()
     }
     else
     {
-        if (checkUserCode(USER_CODE_FLASH0X8005000))
-        {
-            jumpToUser(USER_CODE_FLASH0X8005000);
-        }
-        else
-        {
             // Nothing to execute in either Flash or RAM
 #if defined(LED_BANK) && defined(LED_PIN) && defined(LED_ON_STATE)
             strobePin(LED_BANK, LED_PIN, 5, BLINK_FAST,LED_ON_STATE);
 #endif
             systemHardReset();
-        }
     }
 
     return 0;// Added to please the compiler

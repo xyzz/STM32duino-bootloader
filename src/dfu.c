@@ -100,19 +100,6 @@ bool dfuUpdateByRequest(void) {
                         userUploadType = DFU_UPLOAD_RAM;
                         break;
                         */
-                    case 1:
-
-                        userAppAddr = USER_CODE_FLASH0X8005000;
-                        userUploadType = DFU_UPLOAD_FLASH_0X8005000;
-
-                        /* make sure the flash is setup properly, unlock it */
-                        setupFLASH();
-                        flashUnlock();
-                        // Clear lower memory so that we can check on cold boot, whether the last upload was to 0x8002000 or 0x8005000
-                        flashErasePage((u32)USER_CODE_FLASH0X8002000);
-                        bkp10Write(RTC_BOOTLOADER_JUST_UPLOADED);
-
-                        break;
                     case 2:
                         userUploadType = DFU_UPLOAD_FLASH_0X8002000;
                         userAppAddr = USER_CODE_FLASH0X8002000;
@@ -147,10 +134,6 @@ bool dfuUpdateByRequest(void) {
                     userAppAddr = USER_CODE_RAM;
                     userAppEnd = RAM_END;
                     */
-                case 1:
-                    userAppAddr = USER_CODE_FLASH0X8005000;
-                    userAppEnd = getFlashEnd();
-                    break;
                 case 2:
                     userAppAddr = USER_CODE_FLASH0X8002000;
                     userAppEnd = getFlashEnd();
@@ -428,14 +411,7 @@ void dfuCopyBufferToExec() {
     else
 */
     {
-        if (userUploadType == DFU_UPLOAD_FLASH_0X8005000)
-        {
-            userSpace = (u32 *)(USER_CODE_FLASH0X8005000 + userFirmwareLen);
-        }
-        else
-        {
-            userSpace = (u32 *)(USER_CODE_FLASH0X8002000 + userFirmwareLen);
-        }
+        userSpace = (u32 *)(USER_CODE_FLASH0X8002000 + userFirmwareLen);
 
         flashErasePage((u32)(userSpace));
 
