@@ -25,7 +25,7 @@ target_compile_options(bootloader.elf PUBLIC
     -mcpu=cortex-m3
 
     -flto
-    -Os
+    ${OPT}
 
     -Wall
     -Wextra
