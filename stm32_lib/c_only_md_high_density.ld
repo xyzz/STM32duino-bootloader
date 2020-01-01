@@ -133,6 +133,8 @@ DISCARD :
     libgcc.a ( * )
   }
 
+/DISCARD/ : { *(.ARM.exidx) *(.ARM.exidx*) *(.gnu.linkonce.armexidx.*) }
+
 /* Stabs debugging sections.  */
     .stab          0 : { *(.stab) }
     .stabstr       0 : { *(.stabstr) }

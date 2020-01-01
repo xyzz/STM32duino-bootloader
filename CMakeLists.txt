@@ -45,14 +45,13 @@ target_compile_definitions(bootloader.elf PUBLIC
 )
 
 target_link_libraries(bootloader.elf PUBLIC
-    c
-    gcc
     -nostartfiles
+    -nostdlib
     "-T ${PROJECT_SOURCE_DIR}/stm32_lib/c_only_md_high_density.ld"
 )
 
 add_custom_target(bootloader.bin ALL
-    COMMAND arm-none-eabi-objcopy -O binary $<TARGET_FILE:bootloader.elf> ${CMAKE_BINARY_DIR}/bootloader.bin
+    COMMAND arm-none-eabi-objcopy -j .isr_vector -j .text -j .data -O binary $<TARGET_FILE:bootloader.elf> ${CMAKE_BINARY_DIR}/bootloader.bin
     DEPENDS bootloader.elf
     BYPRODUCTS bootloader.bin
 )
