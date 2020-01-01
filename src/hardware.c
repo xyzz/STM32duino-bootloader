@@ -194,8 +194,8 @@ void setupFLASH() {
     while ((pRCC->CR & 0x02) == 0x00) {}
 }
 
-bool checkUserCode(u32 usrAddr) {
-    u32 sp = *(vu32 *) usrAddr;
+bool checkUserCode(void) {
+    u32 sp = *(vu32 *) USER_CODE_FLASH0X8002000;
 
     if ((sp & 0x2FFE0000) == 0x20000000) {
         return (TRUE);
@@ -204,7 +204,7 @@ bool checkUserCode(u32 usrAddr) {
     }
 }
 
-void setMspAndJump(u32 usrAddr) {
+static void setMspAndJump(u32 usrAddr) {
     // Dedicated function with no call to any function (appart the last call)
     // This way, there is no manipulation of the stack here, ensuring that GGC
     // didn't insert any pop from the SP after having set the MSP.
@@ -221,7 +221,7 @@ void setMspAndJump(u32 usrAddr) {
 }
 
 
-void jumpToUser(u32 usrAddr) {
+void jumpToUser() {
 
     /* tear down all the dfu related setup */
     // disable usb interrupts, clear them, turn off usb, set the disc pin
@@ -231,7 +231,7 @@ void jumpToUser(u32 usrAddr) {
 // Does nothing, as PC12 is not connected on teh Maple mini according to the schemmatic     setPin(GPIOC, 12); // disconnect usb from host. todo, macroize pin
     systemReset(); // resets clocks and periphs, not core regs
 
-    setMspAndJump(usrAddr);
+    setMspAndJump(USER_CODE_FLASH0X8002000);
 }
 
 int checkAndClearBootloaderFlag() {

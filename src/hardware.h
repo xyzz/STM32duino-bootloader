@@ -251,8 +251,8 @@ void systemReset(void);
 void setupCLK(void);
 void setupLEDAndButton(void);
 void setupFLASH(void);
-bool checkUserCode(u32 usrAddr);
-void jumpToUser(u32 usrAddr);
+bool checkUserCode(void);
+void jumpToUser(void);
 int checkAndClearBootloaderFlag();
 
 bool flashWriteWord(u32 addr, u32 word);

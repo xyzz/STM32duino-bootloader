@@ -46,7 +46,7 @@ int main()
         - a button is pressed
         - a keyboard button is pressed
     */
-    if (checkAndClearBootloaderFlag() || !checkUserCode(USER_CODE_FLASH0X8002000) || readButtonState() || readKbMatrix()) {
+    if (checkAndClearBootloaderFlag() || !checkUserCode() || readButtonState() || readKbMatrix()) {
         setupFLASH();
         setupUSB();
 
@@ -55,7 +55,7 @@ int main()
         }
     }
 
-    jumpToUser(USER_CODE_FLASH0X8002000);
+    jumpToUser();
 
     return 0;
 }
