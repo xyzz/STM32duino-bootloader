@@ -79,7 +79,6 @@ typedef enum _DEVICE_STATE {
 } DEVICE_STATE;
 
 void setupUSB(void);
-void usbDsbBus(void);
 void usbAppInit(void); /* singleton usb initializer */
 
 void usbSuspend(void);
@@ -125,7 +124,6 @@ void vcomEp3Out(void);
 /* Interrupt setup/handling exposed only so that
    its obvious from main what interrupts are overloaded
    from c_only_startup.s (see the top of main.c) */
-void usbDsbISR(void);
 void usbEnbISR(void);
 
 /* override the weakly defined isr in linker */

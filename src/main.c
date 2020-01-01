@@ -39,8 +39,6 @@ int main()
     systemReset(); // peripherals but not PC
     setupCLK();
     setupLEDAndButton();
-    setupUSB();
-    setupFLASH();
 
     /* Start DFU if any of the following is true:
         - there's a bootloader flag in the backup register (set by QMK reboot)
@@ -49,6 +47,9 @@ int main()
         - a keyboard button is pressed
     */
     if (checkAndClearBootloaderFlag() || !checkUserCode(USER_CODE_FLASH0X8002000) || readButtonState() || readKbMatrix()) {
+        setupFLASH();
+        setupUSB();
+
         while (1) {
             __asm__ volatile ("wfi");
         }

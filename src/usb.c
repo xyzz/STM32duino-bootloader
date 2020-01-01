@@ -80,20 +80,6 @@ void setupUSB (void) {
 
 }
 
-
-
-
-void usbDsbBus(void) {
-// setPin(USB_DISC_BANK,USB_DISC_PIN);
-usbPowerOff();
-// SET_REG(USB_DISC_CR,
-// (GET_REG(USB_DISC_CR) & USB_DISC_CR_MASK) | USB_DISC_CR_OUTPUT);
-// resetPin(USB_DISC_BANK, USB_DISC_PIN); /* Pull DP+ down */
-// volatile unsigned x = 500000; do { ; }while(--x);
-// SET_REG(USB_DISC_CR,
-// (GET_REG(USB_DISC_CR) & USB_DISC_CR_MASK) | USB_DISC_CR_INPUT); //Sets the PA12 as floating input
-}
-
 vu32 bDeviceState = UNCONNECTED;
 
 /* tracks sequential behavior of the ISTR */
@@ -454,15 +440,6 @@ void usbEnbISR(void) {
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = TRUE;
-    nvicInit(&NVIC_InitStructure);
-}
-
-void usbDsbISR(void) {
-    NVIC_InitTypeDef NVIC_InitStructure;
-    NVIC_InitStructure.NVIC_IRQChannel = USB_LP_IRQ;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-    NVIC_InitStructure.NVIC_IRQChannelCmd = FALSE;
     nvicInit(&NVIC_InitStructure);
 }
 

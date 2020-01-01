@@ -226,13 +226,7 @@ void jumpToUser(u32 usrAddr) {
     /* tear down all the dfu related setup */
     // disable usb interrupts, clear them, turn off usb, set the disc pin
     // todo pick exactly what we want to do here, now its just a conservative
-    flashLock();
-    usbDsbISR();
     nvicDisableInterrupts();
-
-#ifndef HAS_MAPLE_HARDWARE
-    usbDsbBus();
-#endif
 
 // Does nothing, as PC12 is not connected on teh Maple mini according to the schemmatic     setPin(GPIOC, 12); // disconnect usb from host. todo, macroize pin
     systemReset(); // resets clocks and periphs, not core regs
