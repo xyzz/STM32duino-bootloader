@@ -6,12 +6,12 @@ function(add_bootloader device)
     string(TOUPPER ${device} device_upper)
 
     add_executable(${device}.elf
-        dfu.c
-        hardware.c
-        main.c
-        usb_callbacks.c
-        usb_descriptor.c
-        usb.c
+        src/dfu.c
+        src/hardware.c
+        src/main.c
+        src/usb_callbacks.c
+        src/usb_descriptor.c
+        src/usb.c
 
         usb_lib/usb_core.c
         usb_lib/usb_init.c
