@@ -35,11 +35,9 @@
 #include "usb.h"
 
 /* DFU globals */
-static volatile u32 userAppAddr;
-static volatile u32 userAppEnd;
+static u32 userAppAddr;
+static u32 userAppEnd;
 static volatile DFUStatus dfuAppStatus;       /* includes state */
-volatile bool dfuBusy = FALSE;
-
 
 //static volatile u8 recvBuffer[wTransferSize] __attribute__((aligned(4)));
 static volatile u8 recvBuffer[LARGEST_FLASH_PAGE_SIZE] __attribute__((aligned(4)));
@@ -64,7 +62,6 @@ void dfuInit(void) {
     userAppAddr = USER_CODE_FLASH0X8002000;
     userAppEnd = getFlashEnd();
     code_copy_lock = WAIT;
-    dfuBusy = FALSE;
 }
 
 
@@ -73,17 +70,12 @@ void dfuInit(void) {
 bool dfuUpdateByRequest(void) {
     /* were using the global pInformation struct from usb_lib here,
        see comment in maple_dfu.h around DFUEvent struct */
-    dfuBusy = TRUE;
-
-
 
     u8 startState = dfuAppStatus.bState;
     dfuAppStatus.bStatus = OK;
     /* often leaner to nest if's then embed a switch/case */
     if (startState == dfuIDLE)  {
         /*  device running inside DFU mode */
-        dfuBusy = TRUE; // signals the main loop to defer to the dfu write-loop
-
         if (pInformation->USBbRequest == DFU_DNLOAD) {
             if (pInformation->USBwLengths.w > 0) {
                 userFirmwareLen = 0;
