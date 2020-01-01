@@ -49,18 +49,6 @@
 #define RCC_APB1ENR_PWR_CLK   0x10000000
 #define RCC_APB1ENR_BKP_CLK   0x08000000
 
-
-// Use the usb_description_strings_util.html to make new strngs for the next 3 arrays if you need to change the text.
-
-#define ALT0_STR_LEN 0x80
-#define ALT0_MSG_STR 'S',0,'T',0,'M',0,'3',0,'2',0,'d',0,'u',0,'i',0,'n',0,'o',0,' ',0,'b',0,'o',0,'o',0,'t',0,'l',0,'o',0,'a',0,'d',0,'e',0,'r',0,' ',0,'v',0,'1',0,'.',0,'0',0,' ',0,' ',0,'E',0,'R',0,'R',0,'O',0,'R',0,'.',0,' ',0,'U',0,'p',0,'l',0,'o',0,'a',0,'d',0,' ',0,'t',0,'o',0,' ',0,'R',0,'A',0,'M',0,' ',0,'n',0,'o',0,'t',0,' ',0,'s',0,'u',0,'p',0,'p',0,'o',0,'r',0,'t',0,'e',0,'d',0,'.',0
-
-#define ALT1_STR_LEN 0x6C
-#define ALT1_MSG_STR 'S',0,'T',0,'M',0,'3',0,'2',0,'d',0,'u',0,'i',0,'n',0,'o',0,' ',0,'b',0,'o',0,'o',0,'t',0,'l',0,'o',0,'a',0,'d',0,'e',0,'r',0,' ',0,'v',0,'1',0,'.',0,'0',0,' ',0,' ',0,'U',0,'p',0,'l',0,'o',0,'a',0,'d',0,' ',0,'t',0,'o',0,' ',0,'F',0,'l',0,'a',0,'s',0,'h',0,' ',0,'0',0,'x',0,'8',0,'0',0,'0',0,'5',0,'0',0,'0',0,'0',0
-
-#define ALT2_STR_LEN 0x6C
-#define ALT2_MSG_STR 'S',0,'T',0,'M',0,'3',0,'2',0,'d',0,'u',0,'i',0,'n',0,'o',0,' ',0,'b',0,'o',0,'o',0,'t',0,'l',0,'o',0,'a',0,'d',0,'e',0,'r',0,' ',0,'v',0,'1',0,'.',0,'0',0,' ',0,' ',0,'U',0,'p',0,'l',0,'o',0,'a',0,'d',0,' ',0,'t',0,'o',0,' ',0,'F',0,'l',0,'a',0,'s',0,'h',0,' ',0,'0',0,'x',0,'8',0,'0',0,'0',0,'2',0,'0',0,'0',0,'0',0
-
 #define USER_CODE_FLASH0X8002000    ((u32)0x08002000)
 
 #define LARGEST_FLASH_PAGE_SIZE 0x800
@@ -113,9 +101,9 @@
 #endif
 
 // defines for USB (DONT CHANGE)
-#define VEND_ID0 0xAF
-#define VEND_ID1 0x1E
-#define PROD_ID0 0x03
+#define VEND_ID0 0x62
+#define VEND_ID1 0x6B
+#define PROD_ID0 0x00
 #define PROD_ID1 0x00
 
 // Value to place in RTC backup register 10 for persistent bootloader mode
