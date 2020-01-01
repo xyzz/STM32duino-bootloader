@@ -204,20 +204,16 @@ bool checkUserCode(void) {
     }
 }
 
-static void setMspAndJump(u32 usrAddr) {
-    // Dedicated function with no call to any function (appart the last call)
-    // This way, there is no manipulation of the stack here, ensuring that GGC
-    // didn't insert any pop from the SP after having set the MSP.
-    typedef void (*funcPtr)(void);
-    u32 jumpAddr = *(vu32 *)(usrAddr + 0x04); /* reset ptr in vector table */
-
-    funcPtr usrMain = (funcPtr) jumpAddr;
+static __attribute__((noreturn)) void setMspAndJump(u32 usrAddr) {
+    u32 usrSp = *(vu32 *)usrAddr;
+    u32 usrMain = *(vu32 *)(usrAddr + 0x04); /* reset ptr in vector table */
 
     SET_REG(SCB_VTOR, (vu32) (usrAddr));
 
-    asm volatile("msr msp, %0"::"r"(*(volatile u32 *)usrAddr));
-
-    usrMain();                                /* go! */
+    __asm__ volatile(
+        "msr msp, %0\n"
+        "bx %1\n"
+        :: "r" (usrSp), "r" (usrMain));
 }
 
 
