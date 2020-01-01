@@ -48,6 +48,7 @@ int main()
     */
     if (checkAndClearBootloaderFlag() || !checkUserCode() || readButtonState() || readKbMatrix()) {
         setupFLASH();
+        flashUnlock();
         setupUSB();
 
         while (1) {

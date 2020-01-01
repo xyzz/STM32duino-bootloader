@@ -65,12 +65,6 @@
 
 #define LARGEST_FLASH_PAGE_SIZE 0x800
 
-// Upload to RAM has been removed / depreacted so these values a not used any more
-#define USER_CODE_RAM               ((u32)0x20000C00)
-
-// RAM_END, set ram end to the end of ram on the device wth the least RAM (STM32F103C)
-#define RAM_END                     ((u32)0x20005000)
-
 /* Porting information Please read.
 
     These defineds are use to setup the hardware of the GPIO.
