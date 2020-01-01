@@ -33,86 +33,28 @@
 
 #include "common.h"
 #include "dfu.h"
-extern volatile dfuUploadTypes_t userUploadType;
 
 int main()
 {
-    bool no_user_jump = FALSE;
-    bool dont_wait=FALSE;
-
     systemReset(); // peripherals but not PC
     setupCLK();
     setupLEDAndButton();
     setupUSB();
     setupFLASH();
 
-    switch(checkAndClearBootloaderFlag())
-    {
-        case 0x01:
-            no_user_jump = TRUE;
-#if defined(LED_BANK) && defined(LED_PIN) && defined(LED_ON_STATE)
-            strobePin(LED_BANK, LED_PIN, STARTUP_BLINKS, BLINK_FAST,LED_ON_STATE);
-#endif
-        break;
-        case 0x02:
-            dont_wait=TRUE;
-        break;
-        default:
-			#ifdef FASTBOOT
-				dont_wait=TRUE;
-			#else
-				#if defined(LED_BANK) && defined(LED_PIN) && defined(LED_ON_STATE)
-							strobePin(LED_BANK, LED_PIN, STARTUP_BLINKS, BLINK_FAST,LED_ON_STATE);
-				#endif
-			#endif            
-            if (!checkUserCode(USER_CODE_FLASH0X8002000))
-            {
-                no_user_jump = TRUE;
-            }
-            else if (readButtonState())
-            {
-				no_user_jump = TRUE;
-				#ifdef FASTBOOT
-					dont_wait=FALSE;
-				#endif
-            }
-        break;
-    }
-
-    /* Start DFU if a keyboard matrix key is held on boot */
-    if (readKbMatrix()) {
-        no_user_jump = TRUE;
-        dont_wait = FALSE;
-    }
-
-    if (!dont_wait || no_user_jump)
-    {
-        int delay_count = 0;
-
-        while ((delay_count++ < BOOTLOADER_WAIT) || no_user_jump)
-        {
-#if defined(LED_BANK) && defined(LED_PIN) && defined(LED_ON_STATE)
-            strobePin(LED_BANK, LED_PIN, 1, BLINK_SLOW,LED_ON_STATE);
-#endif
-            if (dfuUploadStarted())
-            {
-                dfuFinishUpload(); // systemHardReset from DFU once done
-            }
+    /* Start DFU if any of the following is true:
+        - there's a bootloader flag in the backup register (set by QMK reboot)
+        - there's no user code
+        - a button is pressed
+        - a keyboard button is pressed
+    */
+    if (checkAndClearBootloaderFlag() || !checkUserCode(USER_CODE_FLASH0X8002000) || readButtonState() || readKbMatrix()) {
+        while (1) {
+            __asm__ volatile ("wfi");
         }
     }
 
-    if (checkUserCode(USER_CODE_FLASH0X8002000))
-    {
-        jumpToUser(USER_CODE_FLASH0X8002000);
-    }
-    else
-    {
-            // Nothing to execute in either Flash or RAM
-#if defined(LED_BANK) && defined(LED_PIN) && defined(LED_ON_STATE)
-            strobePin(LED_BANK, LED_PIN, 5, BLINK_FAST,LED_ON_STATE);
-#endif
-            systemHardReset();
-    }
+    jumpToUser(USER_CODE_FLASH0X8002000);
 
-    return 0;// Added to please the compiler
+    return 0;
 }

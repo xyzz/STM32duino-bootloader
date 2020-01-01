@@ -93,8 +93,6 @@
 #if defined(TARGET_GENERIC)
     /* Generic stm32f103 target, nothing to see here */
 #elif defined(TARGET_BASICPAD_V1)
-    #define FASTBOOT
-
     /* Middle key in the 3x3 keymatrix */
     #define BL_OUTPUT_BANK GPIOB
     #define BL_OUTPUT_PIN 10
@@ -128,5 +126,4 @@
 
 // Value to place in RTC backup register 10 for persistent bootloader mode
 #define RTC_BOOTLOADER_FLAG 0x424C
-#define RTC_BOOTLOADER_JUST_UPLOADED 0x424D
 #endif

@@ -106,7 +106,6 @@ bool dfuUpdateByRequest(void) {
                         /* make sure the flash is setup properly, unlock it */
                         setupFLASH();
                         flashUnlock();
-                        bkp10Write(RTC_BOOTLOADER_JUST_UPLOADED);
 
                         break;
                     default:
