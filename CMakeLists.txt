@@ -9,7 +9,6 @@ function(add_bootloader device)
         src/dfu.c
         src/hardware.c
         src/main.c
-        src/usb_callbacks.c
         src/usb_descriptor.c
         src/usb.c
 
