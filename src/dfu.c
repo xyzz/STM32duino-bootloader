@@ -319,20 +319,17 @@ u8 *dfuCopyUPLOAD(u16 length) {
 
 void dfuCopyBufferToExec() {
     int i;
-    u32 *userSpace;
+    u32 userSpace;
 
-    {
-        userSpace = (u32 *)(USER_CODE_FLASH0X8002000 + userFirmwareLen);
+    userSpace = USER_CODE_FLASH0X8002000 + userFirmwareLen;
 
-        flashErasePage((u32)(userSpace));
+    flashErasePage(userSpace);
 
-        for (i = 0; i < thisBlockLen; i = i + 4) {
-            flashWriteWord((u32)(userSpace++), *(u32 *)(recvBuffer +i));
-        }
-
+    for (i = 0; i < thisBlockLen; i += 4) {
+        flashWriteWord(userSpace + i, *(u32 *)(recvBuffer + i));
     }
-    userFirmwareLen += thisBlockLen;
 
+    userFirmwareLen += thisBlockLen;
     thisBlockLen = 0;
 }
 
