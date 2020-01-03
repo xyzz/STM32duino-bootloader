@@ -320,8 +320,15 @@ u8 *dfuCopyUPLOAD(u16 length) {
 void dfuCopyBufferToExec() {
     int i;
     u32 userSpace;
+    u32 start, end;
 
     userSpace = USER_CODE + userFirmwareLen;
+
+    /* Bail out if trying to flash out of bounds. */
+    start = userSpace;
+    end = start + thisBlockLen;
+    if (end < start || start < userAppAddr || end > userAppEnd)
+        return;
 
     flashErasePage(userSpace);
 
