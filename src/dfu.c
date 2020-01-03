@@ -240,6 +240,11 @@ bool dfuUpdateByRequest(void) {
         dfuAppStatus.bStatus = errSTALLEDPKT;
     }
 
+    /* Don't wait for a USB reset and just reset ourselves after the firmware is uploaded and manifested */
+    if (dfuAppStatus.bState == dfuMANIFEST_WAIT_RESET) {
+        systemHardReset();
+    }
+
     if (dfuAppStatus.bStatus == OK) {
         return TRUE;
     } else {
