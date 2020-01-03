@@ -59,7 +59,7 @@ void dfuInit(void) {
     dfuAppStatus.iString = 0x00;          /* all strings must be 0x00 until we make them! */
     userFirmwareLen = 0;
     thisBlockLen = 0;;
-    userAppAddr = USER_CODE_FLASH0X8002000;
+    userAppAddr = USER_CODE;
     userAppEnd = getFlashEnd();
     code_copy_lock = WAIT;
 }
@@ -321,7 +321,7 @@ void dfuCopyBufferToExec() {
     int i;
     u32 userSpace;
 
-    userSpace = USER_CODE_FLASH0X8002000 + userFirmwareLen;
+    userSpace = USER_CODE + userFirmwareLen;
 
     flashErasePage(userSpace);
 

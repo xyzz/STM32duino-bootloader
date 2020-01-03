@@ -195,7 +195,7 @@ void setupFLASH() {
 }
 
 bool checkUserCode(void) {
-    u32 sp = *(vu32 *) USER_CODE_FLASH0X8002000;
+    u32 sp = *(vu32 *) USER_CODE;
 
     if ((sp & 0x2FFE0000) == 0x20000000) {
         return (TRUE);
@@ -229,7 +229,7 @@ void jumpToUser() {
 // Does nothing, as PC12 is not connected on teh Maple mini according to the schemmatic     setPin(GPIOC, 12); // disconnect usb from host. todo, macroize pin
     systemReset(); // resets clocks and periphs, not core regs
 
-    setMspAndJump(USER_CODE_FLASH0X8002000);
+    setMspAndJump(USER_CODE);
 }
 
 int checkAndClearBootloaderFlag() {
