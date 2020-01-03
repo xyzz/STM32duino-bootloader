@@ -25,6 +25,7 @@ function(add_bootloader device)
     target_compile_options(${device}.elf PUBLIC
         -mthumb
         -mcpu=cortex-m3
+        -fno-strict-aliasing
 
         -flto
         ${OPT}
