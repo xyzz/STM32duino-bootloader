@@ -100,3 +100,40 @@ Suppose you want to enter the bootloader when K_4, the middle button in the matr
     #define BL_INPUT_BANK GPIOA
     #define BL_INPUT_PIN 4
 ```
+
+## Write protection
+
+You could enable write protection for the first 8KB of memory so that the bootloader is not accidentally overwritten if e.g. there is a bug in QMK resulting in an erase of first few pages (it is important to note that the current implementation of the bootloader **does not** allow a user to overwrite itself). However, this is not a security feature and malicious code could easily bypass the protection.
+
+First, obtain and compile a fork of `stlink` with support for writing option bytes on STM32F103: https://github.com/xyzz/stlink/tree/stm32f10-opt-bytes.
+
+Prepare the option files:
+
+```
+echo "A5 5A" | xxd -r -p - > opt-head.bin
+echo "FF 00 FF 00 FF 00 FC 03 FF 00 FF 00 FF 00" | xxd -r -p - > opt-tail.bin
+```
+
+Flash the option files and the bootloader as a single command:
+
+```
+st-flash opterase && st-flash write opt-head.bin 0x1FFFF800 && st-flash write PATH/TO/YOUR/BOOTLOADER.BIN 0x8000000 && st-flash write opt-tail.bin 0x1FFFF802 && st-flash --area=option read
+```
+
+Confirm that at the end `st-flash` output the following:
+
+```
+2020-01-12T15:40:09 INFO common.c: SRAM size: 0x5000 bytes (20 KiB), Flash: 0x10000 bytes (64 KiB) in pages of 1024 bytes
+A5 5A FF 00 FF 00 FF 00 FC 03 FF 00 FF 00 FF 00
+```
+
+The sequence executed by the commands is:
+
+1) Erase the option block; this enables read out protection
+2) Disable read protection by writing `A5 5A`; this triggers a mass erase of user flash
+3) Write the bootloader
+4) Enable write protection for the bootloader by writing the remainder of the option block: `FF 00 FF 00 FF 00 FC 03 FF 00 FF 00 FF 00` (`FC 03` protects first two 4KB pages)
+
+After the commands are executed, the device should reboot into DFU mode and you will be able to flash QMK as usual.
+
+If at any point you wish to remove write protection, perform an `opterase` and then flash the default option block: `A5 5A FF 00 FF 00 FF 00 FF 00 FF 00 FF 00 FF 00`.
