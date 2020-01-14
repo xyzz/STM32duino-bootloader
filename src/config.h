@@ -80,6 +80,12 @@
     #define BL_OUTPUT_PIN 10
     #define BL_INPUT_BANK GPIOA
     #define BL_INPUT_PIN 4
+#elif defined(TARGET_BASICPAD_V2)
+    /* Middle key in the 3x3 keymatrix */
+    #define BL_OUTPUT_BANK GPIOB
+    #define BL_OUTPUT_PIN 12
+    #define BL_INPUT_BANK GPIOA
+    #define BL_INPUT_PIN 3
 #else
     #error "No config for this target"
 #endif

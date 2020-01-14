@@ -62,3 +62,4 @@ endfunction(add_bootloader)
 
 add_bootloader(generic)
 add_bootloader(basicpad_v1)
+add_bootloader(basicpad_v2)
