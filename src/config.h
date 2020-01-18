@@ -87,7 +87,7 @@
     #define BL_INPUT_BANK GPIOA
     #define BL_INPUT_PIN 3
 #elif defined(TARGET_BASICPOLD)
-    /* Spacebar */
+    /* Backspace */
     #define BL_OUTPUT_BANK GPIOA
     #define BL_OUTPUT_PIN 9
     #define BL_INPUT_BANK GPIOB
