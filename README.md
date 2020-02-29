@@ -6,6 +6,10 @@ Based on [STM32duino-bootloader](https://github.com/rogerclarkmelbourne/STM32dui
 
 This projects can be compiled either with GCC or with Clang. Clang is known to produce smaller binaries (by about ~100 bytes), however you need a fairly recent version.
 
+### A note on GCC version
+
+The newer versions of GCC do not play nice with LTO: they remove functions even when marked with attributes `used` and `interrupt`, end result being broken bootloaders. See [bug #1747966](https://bugs.launchpad.net/gcc-arm-embedded/+bug/1747966). You can use an older GCC (6.3.1 from Ubuntu 18.04 is known to work) or disable LTO altogether.
+
 ### GCC
 
 ```
