@@ -51,6 +51,7 @@ function(add_bootloader device)
         -nostartfiles
         -nostdlib
         "-T ${PROJECT_SOURCE_DIR}/stm32_lib/c_only_md_high_density.ld"
+        -lgcc
     )
 
     add_custom_target(bootloader-${device}.bin ALL
