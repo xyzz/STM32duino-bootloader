@@ -2,6 +2,10 @@
 
 Based on [STM32duino-bootloader](https://github.com/rogerclarkmelbourne/STM32duino-bootloader).
 
+## Known issues
+
+- JTAG or SWD pins used as part of keyboard matrix can't be used for bootloader entry
+
 ## Compiling
 
 This projects can be compiled either with GCC or with Clang. Clang is known to produce smaller binaries (by about ~100 bytes), however you need a fairly recent version.
