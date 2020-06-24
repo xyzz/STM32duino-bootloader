@@ -92,6 +92,12 @@
     #define BL_OUTPUT_PIN 9
     #define BL_INPUT_BANK GPIOA
     #define BL_INPUT_PIN 10
+#elif defined(TARGET_IN80)
+    /* Backspace */
+    #define BL_OUTPUT_BANK GPIOB
+    #define BL_OUTPUT_PIN 2
+    #define BL_INPUT_BANK GPIOC
+    #define BL_INPUT_PIN 14
 #else
     #error "No config for this target"
 #endif
