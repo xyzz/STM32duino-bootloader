@@ -8,11 +8,11 @@ Based on [STM32duino-bootloader](https://github.com/rogerclarkmelbourne/STM32dui
 
 ## Compiling
 
-The newer versions of GCC do not play nice with LTO: they remove functions even when marked with attributes `used` and `interrupt`, end result being broken bootloaders. See [bug #1747966](https://bugs.launchpad.net/gcc-arm-embedded/+bug/1747966). You can use an older GCC (6.3.1 from Ubuntu 18.04 is known to work) or disable LTO altogether.
+A recent version of the [GNU Arm Embedded Toolchain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm) is recommended for building this project. In order to build, execute the following commands:
 
 ```
 mkdir build && cd build
-cmake -DCMAKE_TOOLCHAIN_FILE=../toolchain/gcc.cmake ..
+cmake ..
 make -j8
 ```
 
