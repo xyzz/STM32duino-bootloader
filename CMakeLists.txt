@@ -6,6 +6,7 @@ function(add_bootloader device)
     string(TOUPPER ${device} device_upper)
 
     add_executable(${device}.elf
+        src/startup.c
         src/dfu.c
         src/hardware.c
         src/main.c
