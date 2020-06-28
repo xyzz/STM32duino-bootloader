@@ -98,6 +98,12 @@
     #define BL_OUTPUT_PIN 2
     #define BL_INPUT_BANK GPIOC
     #define BL_INPUT_PIN 14
+#elif defined(TARGET_XYZLICE)
+    /* Bottom-right control */
+    #define BL_OUTPUT_BANK GPIOB
+    #define BL_OUTPUT_PIN 4
+    #define BL_INPUT_BANK GPIOC
+    #define BL_INPUT_PIN 15
 #else
     #error "No config for this target"
 #endif
