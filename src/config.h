@@ -104,11 +104,20 @@
     #define BL_OUTPUT_PIN 4
     #define BL_INPUT_BANK GPIOC
     #define BL_INPUT_PIN 15
+#elif defined(TARGET_MODELH)
+    /* Esc */
+    #define BL_OUTPUT_BANK GPIOB
+    #define BL_OUTPUT_PIN 6
+    #define BL_INPUT_BANK GPIOA
+    #define BL_INPUT_PIN 8
+    #define LED_BANK GPIOC
+    #define LED_PIN 13
+    #define LED_ON_STATE 1
 #else
     #error "No config for this target"
 #endif
 
-// Check if button pulldown should be enabled 
+// Check if button pulldown should be enabled
 // Default to True as this was the default prior to needing to disable it
 // in order to use the boot1 pin on the Blue Pill which has a very week pullup
 #ifndef BUTTON_INPUT_MODE
